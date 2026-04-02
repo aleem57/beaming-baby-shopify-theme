@@ -1,0 +1,1180 @@
+{% comment %}
+============================================================
+  BEAMING BABY — Bundle Comparison Table
+  Section file: sections/bb-compare-table.liquid
+============================================================
+
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  VARIANT ID PLACEHOLDERS                                         ║
+  ║  Replace every placeholder string below with the real numeric    ║
+  ║  Shopify variant ID once the products are set up in admin.       ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  DISPOSABLE TIERS — Size Variants (Sizes 1–6)                   ║
+  ║                                                                  ║
+  ║  Bronze:                                                         ║
+  ║    Size 1: REPLACE_VID_BRONZE_S1                                 ║
+  ║    Size 2: REPLACE_VID_BRONZE_S2                                 ║
+  ║    Size 3: REPLACE_VID_BRONZE_S3                                 ║
+  ║    Size 4: REPLACE_VID_BRONZE_S4                                 ║
+  ║    Size 5: REPLACE_VID_BRONZE_S5                                 ║
+  ║    Size 6: REPLACE_VID_BRONZE_S6                                 ║
+  ║                                                                  ║
+  ║  Silver:                                                         ║
+  ║    Size 1: REPLACE_VID_SILVER_S1                                 ║
+  ║    Size 2: REPLACE_VID_SILVER_S2                                 ║
+  ║    Size 3: REPLACE_VID_SILVER_S3                                 ║
+  ║    Size 4: REPLACE_VID_SILVER_S4                                 ║
+  ║    Size 5: REPLACE_VID_SILVER_S5                                 ║
+  ║    Size 6: REPLACE_VID_SILVER_S6                                 ║
+  ║                                                                  ║
+  ║  Gold:                                                           ║
+  ║    Size 1: REPLACE_VID_GOLD_S1                                   ║
+  ║    Size 2: REPLACE_VID_GOLD_S2                                   ║
+  ║    Size 3: REPLACE_VID_GOLD_S3                                   ║
+  ║    Size 4: REPLACE_VID_GOLD_S4                                   ║
+  ║    Size 5: REPLACE_VID_GOLD_S5                                   ║
+  ║    Size 6: REPLACE_VID_GOLD_S6                                   ║
+  ║                                                                  ║
+  ║  Platinum:                                                       ║
+  ║    Size 1: REPLACE_VID_PLATINUM_S1                               ║
+  ║    Size 2: REPLACE_VID_PLATINUM_S2                               ║
+  ║    Size 3: REPLACE_VID_PLATINUM_S3                               ║
+  ║    Size 4: REPLACE_VID_PLATINUM_S4                               ║
+  ║    Size 5: REPLACE_VID_PLATINUM_S5                               ║
+  ║    Size 6: REPLACE_VID_PLATINUM_S6                               ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  REUSABLE TIERS — Colour Variants                                ║
+  ║                                                                  ║
+  ║  Reusables Silver (SKU prefix: BB20VRS):                         ║
+  ║    Blue      (BB20VRSBL): REPLACE_VID_RS_BL                      ║
+  ║    Green     (BB20VRSGR): REPLACE_VID_RS_GR                      ║
+  ║    Pink      (BB20VRSPI): REPLACE_VID_RS_PI                      ║
+  ║    Turquoise (BB20VRSTU): REPLACE_VID_RS_TU                      ║
+  ║    Yellow    (BB20VRSYE): REPLACE_VID_RS_YE                      ║
+  ║                                                                  ║
+  ║  Reusables Gold (SKU prefix: BB20VRG):                           ║
+  ║    Blue      (BB20VRGBL): REPLACE_VID_RG_BL                      ║
+  ║    Green     (BB20VRGGR): REPLACE_VID_RG_GR                      ║
+  ║    Pink      (BB20VRGPI): REPLACE_VID_RG_PI                      ║
+  ║    Turquoise (BB20VRGTU): REPLACE_VID_RG_TU                      ║
+  ║    Yellow    (BB20VRGYE): REPLACE_VID_RG_YE                      ║
+  ╚══════════════════════════════════════════════════════════════════╝
+{% endcomment %}
+<style>
+/* ─── ROOT VARS ─── */
+#bbct-{{ section.id }} {
+  --green:        #3a7d5e;
+  --green-dk:     #2c6349;
+  --green-lt:     #e8f5ee;
+  --cream:        #f5f0e8;
+  --white:        #ffffff;
+  --border:       #e0dbd0;
+  --text:         #2c3a2c;
+  --muted:        #8a9a8a;
+  --red:          #e05a44;
+  --star:         #f59e0b;
+  --radius:       10px;
+  --radius-sm:    6px;
+  --shadow:       0 2px 16px rgba(0,0,0,.08);
+  --shadow-md:    0 8px 40px rgba(0,0,0,.14);
+  /* Tier button colours */
+  --btn-bronze:   #a0b08c;
+  --btn-silver:   #d4623a;
+  --btn-gold:     #2c6349;
+  --btn-plat:     #d4623a;
+  --btn-rsil:     #a0b08c;
+  --btn-rgld:     #d4623a;
+  /* Tier badge colours */
+  --bdg-bronze-bg:#f5ede8; --bdg-bronze-fg:#8a9078;
+  --bdg-silver-bg:#fde8e0; --bdg-silver-fg:#d4623a;
+  --bdg-gold-bg:  #e8f0e8; --bdg-gold-fg:  #2c6349;
+  --bdg-plat-bg:  #e8eef8; --bdg-plat-fg:  #5b73b0;
+  --bdg-rsil-bg:  #e8f5ee; --bdg-rsil-fg:  #3a9078;
+  --bdg-rgld-bg:  #fde8e0; --bdg-rgld-fg:  #d4623a;
+  /* Table */
+  --tbl-hdr-bg:   #f5f0e8;
+  --tbl-shdr-bg:  #f0ebe0;
+  --tbl-sep-bg:   #e8e0d0;
+  --row-alt:      #faf8f4;
+}
+
+/* ─── SECTION WRAPPER ─── */
+#bbct-{{ section.id }} {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--cream);
+  padding: 48px 0 64px;
+}
+
+/* ─── HEADING ─── */
+.bbct-heading {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 0 20px;
+}
+.bbct-heading h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: var(--green-dk);
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+.bbct-heading p {
+  font-size: 1rem;
+  color: var(--muted);
+  margin: 0 auto;
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+/* ─── CARDS ROW ─── */
+.bbct-cards-wrap {
+  display: flex;
+  align-items: stretch;
+  margin: 0 16px 32px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.bbct-cards-label {
+  flex: 0 0 auto;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 20px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--border);
+  min-width: 32px;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.bbct-cards-inner {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.bbct-card {
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  padding: 20px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  min-width: 155px;
+  flex: 1 1 0;
+  position: relative;
+}
+.bbct-card:last-child { border-right: none; }
+.bbct-card.card-popular {
+  outline: 2px solid var(--green-dk);
+  outline-offset: -2px;
+  z-index: 1;
+}
+.bbct-popular-banner {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  background: var(--green-dk);
+  color: #fff;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 0;
+  text-align: center;
+}
+.bbct-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin-top: 4px;
+}
+.card-popular .bbct-card-badge { margin-top: 18px; }
+.card-bronze .bbct-card-badge { background: var(--bdg-bronze-bg); color: var(--bdg-bronze-fg); }
+.card-silver .bbct-card-badge { background: var(--bdg-silver-bg); color: var(--bdg-silver-fg); }
+.card-gold   .bbct-card-badge { background: var(--bdg-gold-bg);   color: var(--bdg-gold-fg); }
+.card-plat   .bbct-card-badge { background: var(--bdg-plat-bg);   color: var(--bdg-plat-fg); }
+.card-rsil   .bbct-card-badge { background: var(--bdg-rsil-bg);   color: var(--bdg-rsil-fg); }
+.card-rgld   .bbct-card-badge { background: var(--bdg-rgld-bg);   color: var(--bdg-rgld-fg); }
+.bbct-card-img {
+  width: 82px; height: 72px;
+  object-fit: contain; border-radius: 6px;
+}
+.bbct-card-img-ph {
+  width: 82px; height: 72px;
+  background: var(--row-alt);
+  border-radius: 6px;
+  border: 1px dashed var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+}
+.bbct-card-name {
+  font-size: 0.8rem; font-weight: 700;
+  color: var(--text); line-height: 1.3;
+}
+.bbct-card-rating {
+  font-size: 0.68rem; color: var(--muted); line-height: 1.4;
+}
+.bbct-card-stars { color: var(--star); letter-spacing: -1px; }
+.bbct-card-prices {
+  display: flex; align-items: baseline;
+  justify-content: center; gap: 5px; flex-wrap: wrap;
+}
+.bbct-card-was {
+  font-size: 0.72rem; color: var(--muted);
+  text-decoration: line-through;
+}
+.bbct-card-now {
+  font-size: 1.15rem; font-weight: 800; color: var(--red);
+}
+.bbct-atc-btn {
+  width: 100%; padding: 8px 10px;
+  font-size: 0.65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  border: none; border-radius: var(--radius-sm);
+  cursor: pointer; color: #fff; margin-top: auto;
+  transition: opacity .15s, transform .1s;
+}
+.bbct-atc-btn:hover  { opacity: .87; transform: translateY(-1px); }
+.bbct-atc-btn:active { transform: translateY(0); }
+.card-bronze .bbct-atc-btn { background: var(--btn-bronze); }
+.card-silver .bbct-atc-btn { background: var(--btn-silver); }
+.card-gold   .bbct-atc-btn { background: var(--btn-gold); }
+.card-plat   .bbct-atc-btn { background: var(--btn-plat); }
+.card-rsil   .bbct-atc-btn { background: var(--btn-rsil); }
+.card-rgld   .bbct-atc-btn { background: var(--btn-rgld); }
+
+/* ─── COMPARISON TABLE ─── */
+.bbct-tbl-wrap {
+  margin: 0 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--white);
+}
+.bbct-tbl {
+  width: 100%; min-width: 860px;
+  border-collapse: collapse; font-size: 0.78rem;
+}
+.bbct-tbl-groups th {
+  background: var(--tbl-hdr-bg);
+  padding: 10px 8px; text-align: center;
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+.bbct-tbl-groups th:last-child { border-right: none; }
+.bbct-tbl-shdr th {
+  background: var(--tbl-shdr-bg);
+  padding: 9px 8px; font-size: 0.62rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--text); text-align: center;
+  border-top: 2px solid var(--tbl-sep-bg);
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  line-height: 1.3;
+}
+.bbct-tbl-shdr th:last-child { border-right: none; }
+.bbct-tbl-shdr th:first-child {
+  text-align: left; font-size: 0.65rem;
+  color: var(--green-dk); background: var(--tbl-sep-bg);
+  padding-left: 14px;
+}
+.bbct-tbl-shdr th:nth-child(2) {
+  text-align: left; font-size: 0.62rem; color: var(--muted);
+}
+.bbct-tbl tbody tr.bbct-tbl-row { border-bottom: 1px solid var(--border); }
+.bbct-tbl tbody tr.bbct-tbl-row:last-child { border-bottom: none; }
+.bbct-tbl tbody tr.bbct-tbl-row:nth-child(even) td { background: var(--row-alt); }
+.bbct-tbl td {
+  padding: 12px 8px; text-align: center;
+  border-right: 1px solid var(--border);
+  vertical-align: middle; color: var(--text);
+}
+.bbct-tbl td:last-child { border-right: none; }
+.bbct-tbl td:first-child {
+  text-align: left; font-weight: 600; padding-left: 14px;
+}
+.bbct-tbl td:nth-child(2) { text-align: left; min-width: 80px; }
+.bbct-td-was { display: block; font-size: 0.68rem; color: var(--muted); text-decoration: line-through; line-height: 1; margin-bottom: 2px; }
+.bbct-td-now { display: block; font-size: 0.88rem; font-weight: 800; color: var(--red); line-height: 1; }
+.bbct-td-num { font-weight: 700; font-size: 0.88rem; color: var(--text); }
+.bbct-td-dash { color: var(--muted); font-size: 0.9rem; }
+.ico-check {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #3a7d5e; color: #fff; font-size: 0.65rem; font-weight: 700;
+}
+.ico-cross {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #e05a44; color: #fff; font-size: 0.65rem; font-weight: 700;
+}
+
+/* ─── MODAL ─── */
+.bbct-modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.55); z-index: 9999;
+  align-items: center; justify-content: center; padding: 16px;
+}
+.bbct-modal-overlay.open { display: flex; }
+.bbct-modal {
+  background: var(--white); border-radius: var(--radius);
+  padding: 28px 24px 24px; max-width: 440px; width: 100%;
+  box-shadow: var(--shadow-md); position: relative;
+  max-height: 90vh; overflow-y: auto;
+}
+.bbct-modal-close {
+  position: absolute; top: 14px; right: 16px;
+  background: none; border: none; font-size: 1.4rem;
+  cursor: pointer; color: var(--muted); line-height: 1; padding: 0;
+}
+.bbct-modal-close:hover { color: var(--text); }
+.bbct-modal-product { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+.bbct-modal-title { font-size: 1.15rem; font-weight: 700; color: var(--text); margin: 0 0 16px; }
+.bbct-msz-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+.bbct-msz-btn {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 10px 8px;
+  border: 2px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--white); font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; transition: border-color .15s, background .15s;
+  text-align: center; gap: 4px;
+}
+.bbct-msz-btn:hover   { border-color: var(--green); background: var(--green-lt); }
+.bbct-msz-btn.selected { border-color: var(--green); background: var(--green-lt); color: var(--green-dk); }
+.bbct-msz-btn.unavail { opacity: .4; cursor: not-allowed; text-decoration: line-through; }
+.bbct-msz-swatch {
+  display: inline-block; width: 16px; height: 16px;
+  border-radius: 50%; margin-bottom: 4px;
+  border: 2px solid rgba(255,255,255,0.6);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+}
+.bbct-modal-price { font-size: 1rem; font-weight: 700; color: var(--green-dk); margin-bottom: 16px; }
+.bbct-modal-atc {
+  width: 100%; padding: 13px 18px; background: var(--green);
+  color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 0.95rem; font-weight: 700;
+  cursor: pointer; transition: background .15s, transform .1s;
+}
+.bbct-modal-atc:hover  { background: var(--green-dk); }
+.bbct-modal-atc:active { transform: scale(.98); }
+.bbct-modal-atc:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+.bbct-modal-notice { font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: 10px; }
+.bbct-modal-success { display: none; text-align: center; padding: 16px 0; }
+.bbct-modal-success.show { display: block; }
+.bbct-modal-success-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.bbct-modal-success h3 { font-size: 1.1rem; font-weight: 700; color: var(--green-dk); margin: 0 0 6px; }
+.bbct-modal-success p  { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+/* ─── MOBILE TABS ─── */
+.bbct-mob { display: none; margin: 0 12px 32px; }
+.bbct-mob-tabs { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+.bbct-mob-tab { flex: 0 0 auto; padding: 8px 16px; border: 2px solid var(--border); border-radius: 20px; background: var(--white); font-size: 0.8rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: border-color .15s, color .15s; }
+.bbct-mob-tab.active { border-color: var(--green); color: var(--green); background: var(--green-lt); }
+.bbct-mob-panels { margin-top: 12px; }
+.bbct-mob-panel  { display: none; }
+.bbct-mob-panel.active { display: block; }
+.bbct-mob-card {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 20px 16px;
+  display: flex; flex-direction: column; gap: 10px;
+  border-top: 4px solid var(--border);
+}
+.bbct-mob-card.card-bronze { border-top-color: var(--btn-bronze); }
+.bbct-mob-card.card-silver { border-top-color: var(--btn-silver); }
+.bbct-mob-card.card-gold   { border-top-color: var(--btn-gold); }
+.bbct-mob-card.card-plat   { border-top-color: var(--btn-plat); }
+.bbct-mob-card.card-rsil   { border-top-color: var(--btn-rsil); }
+.bbct-mob-card.card-rgld   { border-top-color: var(--btn-rgld); }
+.bbct-mob-name  { font-size: 1rem; font-weight: 700; color: var(--text); }
+.bbct-mob-price { font-size: 1.3rem; font-weight: 800; color: var(--red); }
+.bbct-mob-was   { font-size: 0.8rem; color: var(--muted); text-decoration: line-through; }
+.bbct-mob-save  { font-size: 0.75rem; font-weight: 700; color: var(--red); }
+.bbct-mob-features { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.bbct-mob-features li { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .bbct-cards-wrap { display: none; }
+  .bbct-tbl-wrap   { display: none; }
+  .bbct-mob        { display: block; }
+}
+@media (min-width: 769px) { .bbct-mob { display: none; } }
+</style>
+{% comment %} ── SECTION HTML ── {% endcomment %}
+<section id="bbct-{{ section.id }}" aria-label="Bundle comparison table">
+
+  <div class="bbct-heading">
+    <h2>{{ section.settings.heading | default: "Try more for less — £20 off our essential bundles" }}</h2>
+    <p>{{ section.settings.subheading | default: "Explore our carefully selected bundles and enjoy exceptional value on gentle products made without harsh chemicals, parabens or unnecessary additives." }}</p>
+  </div>
+
+  {% comment %} ──────────────────────────────────
+    PRODUCT CARDS ROW
+    data-is-colour="true"  → opens colour picker (Reusables Silver / Gold)
+    data-is-colour="false" → opens size picker  (Disposable tiers)
+  ────────────────────────────────── {% endcomment %}
+  <div class="bbct-cards-wrap">
+    <div class="bbct-cards-label">Compare Bundles</div>
+    <div class="bbct-cards-inner">
+
+      {% comment %} ── Bronze ── {% endcomment %}
+      <div class="bbct-card card-bronze"
+        data-tier="bronze" data-name="Bronze Bundle" data-price-p="2325"
+        data-one-size="false" data-is-colour="false"
+        data-vid0="REPLACE_VID_BRONZE_S1" data-vid1="REPLACE_VID_BRONZE_S2"
+        data-vid2="REPLACE_VID_BRONZE_S3" data-vid3="REPLACE_VID_BRONZE_S4"
+        data-vid4="REPLACE_VID_BRONZE_S5" data-vid5="REPLACE_VID_BRONZE_S6"
+        data-avail0="true" data-avail1="true" data-avail2="true"
+        data-avail3="true" data-avail4="true" data-avail5="true"
+      >
+        <span class="bbct-card-badge">🏅 Bronze</span>
+        {% if section.settings.bronze_image %}
+          {{ section.settings.bronze_image | image_url: width: 200 | image_tag: class: 'bbct-card-img', alt: 'Bronze Bundle' }}
+        {% else %}
+          <div class="bbct-card-img-ph">📦</div>
+        {% endif %}
+        <div class="bbct-card-name">Bronze Bundle</div>
+        <div class="bbct-card-rating">
+          <span class="bbct-card-stars">★★★★★</span><br>4.9 · Beaming Baby
+        </div>
+        <div class="bbct-card-prices">
+          <span class="bbct-card-was">£43.25</span>
+          <span class="bbct-card-now">£23.25</span>
+        </div>
+        <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">Choose Size</button>
+      </div>
+
+      {% comment %} ── Silver ── {% endcomment %}
+      <div class="bbct-card card-silver"
+        data-tier="silver" data-name="Silver Bundle" data-price-p="3326"
+        data-one-size="false" data-is-colour="false"
+        data-vid0="REPLACE_VID_SILVER_S1" data-vid1="REPLACE_VID_SILVER_S2"
+        data-vid2="REPLACE_VID_SILVER_S3" data-vid3="REPLACE_VID_SILVER_S4"
+        data-vid4="REPLACE_VID_SILVER_S5" data-vid5="REPLACE_VID_SILVER_S6"
+        data-avail0="true" data-avail1="true" data-avail2="true"
+        data-avail3="true" data-avail4="true" data-avail5="true"
+      >
+        <span class="bbct-card-badge">🥈 Silver</span>
+        {% if section.settings.silver_image %}
+          {{ section.settings.silver_image | image_url: width: 200 | image_tag: class: 'bbct-card-img', alt: 'Silver Bundle' }}
+        {% else %}
+          <div class="bbct-card-img-ph">📦</div>
+        {% endif %}
+        <div class="bbct-card-name">Silver Bundle</div>
+        <div class="bbct-card-rating">
+          <span class="bbct-card-stars">★★★★★</span><br>4.9 · Beaming Baby
+        </div>
+        <div class="bbct-card-prices">
+          <span class="bbct-card-was">£53.26</span>
+          <span class="bbct-card-now">£33.26</span>
+        </div>
+        <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">Choose Size</button>
+      </div>
+
+      {% comment %} ── Gold (MOST POPULAR) ── {% endcomment %}
+      <div class="bbct-card card-gold card-popular"
+        data-tier="gold" data-name="Gold Bundle" data-price-p="4954"
+        data-one-size="false" data-is-colour="false"
+        data-vid0="REPLACE_VID_GOLD_S1" data-vid1="REPLACE_VID_GOLD_S2"
+        data-vid2="REPLACE_VID_GOLD_S3" data-vid3="REPLACE_VID_GOLD_S4"
+        data-vid4="REPLACE_VID_GOLD_S5" data-vid5="REPLACE_VID_GOLD_S6"
+        data-avail0="true" data-avail1="true" data-avail2="true"
+        data-avail3="true" data-avail4="true" data-avail5="true"
+      >
+        <div class="bbct-popular-banner">Most Popular</div>
+        <span class="bbct-card-badge">🥇 Gold</span>
+        {% if section.settings.gold_image %}
+          {{ section.settings.gold_image | image_url: width: 200 | image_tag: class: 'bbct-card-img', alt: 'Gold Bundle' }}
+        {% else %}
+          <div class="bbct-card-img-ph">📦</div>
+        {% endif %}
+        <div class="bbct-card-name">Gold Bundle</div>
+        <div class="bbct-card-rating">
+          <span class="bbct-card-stars">★★★★★</span><br>4.9 · Beaming Baby
+        </div>
+        <div class="bbct-card-prices">
+          <span class="bbct-card-was">£69.54</span>
+          <span class="bbct-card-now">£49.54</span>
+        </div>
+        <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">Choose Size</button>
+      </div>
+
+      {% comment %} ── Platinum ── {% endcomment %}
+      <div class="bbct-card card-plat"
+        data-tier="platinum" data-name="Platinum Bundle" data-price-p="6794"
+        data-one-size="false" data-is-colour="false"
+        data-vid0="REPLACE_VID_PLATINUM_S1" data-vid1="REPLACE_VID_PLATINUM_S2"
+        data-vid2="REPLACE_VID_PLATINUM_S3" data-vid3="REPLACE_VID_PLATINUM_S4"
+        data-vid4="REPLACE_VID_PLATINUM_S5" data-vid5="REPLACE_VID_PLATINUM_S6"
+        data-avail0="true" data-avail1="true" data-avail2="true"
+        data-avail3="true" data-avail4="true" data-avail5="true"
+      >
+        <span class="bbct-card-badge">💎 Platinum</span>
+        {% if section.settings.platinum_image %}
+          {{ section.settings.platinum_image | image_url: width: 200 | image_tag: class: 'bbct-card-img', alt: 'Platinum Bundle' }}
+        {% else %}
+          <div class="bbct-card-img-ph">📦</div>
+        {% endif %}
+        <div class="bbct-card-name">Platinum Bundle</div>
+        <div class="bbct-card-rating">
+          <span class="bbct-card-stars">★★★★★</span><br>4.9 · Beaming Baby
+        </div>
+        <div class="bbct-card-prices">
+          <span class="bbct-card-was">£87.94</span>
+          <span class="bbct-card-now">£67.94</span>
+        </div>
+        <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">Choose Size</button>
+      </div>
+
+      {% comment %} ── Reusables Silver ──
+        data-is-colour="true"  → colour picker (not size picker)
+        data-vid0–4            → Blue / Green / Pink / Turquoise / Yellow
+        Prices: £66.44 (was) → £46.44 (now, £20 off)
+        SKUs: BB20VRSBL / BB20VRSGR / BB20VRSPI / BB20VRSTU / BB20VRSYE
+      ── {% endcomment %}
+      <div class="bbct-card card-rsil"
+        data-tier="rsil" data-name="Reusables Silver Bundle" data-price-p="4644"
+        data-one-size="false" data-is-colour="true"
+        data-vid0="REPLACE_VID_RS_BL"
+        data-vid1="REPLACE_VID_RS_GR"
+        data-vid2="REPLACE_VID_RS_PI"
+        data-vid3="REPLACE_VID_RS_TU"
+        data-vid4="REPLACE_VID_RS_YE"
+        data-avail0="true" data-avail1="true" data-avail2="true"
+        data-avail3="true" data-avail4="true"
+      >
+        <span class="bbct-card-badge">♻️ Reusables Silver</span>
+        {% if section.settings.rsil_image %}
+          {{ section.settings.rsil_image | image_url: width: 200 | image_tag: class: 'bbct-card-img', alt: 'Reusables Silver Bundle' }}
+        {% else %}
+          <div class="bbct-card-img-ph">🌿</div>
+        {% endif %}
+        <div class="bbct-card-name">Reusables Silver Bundle</div>
+        <div class="bbct-card-rating">
+          <span class="bbct-card-stars">★★★★★</span><br>4.9 · Beaming Baby
+        </div>
+        <div class="bbct-card-prices">
+          <span class="bbct-card-was">£66.44</span>
+          <span class="bbct-card-now">£46.44</span>
+        </div>
+        <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">Choose Colour</button>
+      </div>
+
+      {% comment %} ── Reusables Gold ──
+        data-is-colour="true"  → colour picker (not size picker)
+        data-vid0–4            → Blue / Green / Pink / Turquoise / Yellow
+        Prices: £91.44 (was) → £71.44 (now, £20 off)
+        SKUs: BB20VRGBL / BB20VRGGR / BB20VRGPI / BB20VRGTU / BB20VRGYE
+      ── {% endcomment %}
+      <div class="bbct-card card-rgld"
+        data-tier="rgld" data-name="Reusables Gold Bundle" data-price-p="7144"
+        data-one-size="false" data-is-colour="true"
+        data-vid0="REPLACE_VID_RG_BL"
+        data-vid1="REPLACE_VID_RG_GR"
+        data-vid2="REPLACE_VID_RG_PI"
+        data-vid3="REPLACE_VID_RG_TU"
+        data-vid4="REPLACE_VID_RG_YE"
+        data-avail0="true" data-avail1="true" data-avail2="true"
+        data-avail3="true" data-avail4="true"
+      >
+        <span class="bbct-card-badge">♻️ Reusables Gold</span>
+        {% if section.settings.rgld_image %}
+          {{ section.settings.rgld_image | image_url: width: 200 | image_tag: class: 'bbct-card-img', alt: 'Reusables Gold Bundle' }}
+        {% else %}
+          <div class="bbct-card-img-ph">🌿</div>
+        {% endif %}
+        <div class="bbct-card-name">Reusables Gold Bundle</div>
+        <div class="bbct-card-rating">
+          <span class="bbct-card-stars">★★★★★</span><br>4.9 · Beaming Baby
+        </div>
+        <div class="bbct-card-prices">
+          <span class="bbct-card-was">£91.44</span>
+          <span class="bbct-card-now">£71.44</span>
+        </div>
+        <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">Choose Colour</button>
+      </div>
+
+    </div><!-- /.bbct-cards-inner -->
+  </div><!-- /.bbct-cards-wrap -->
+
+  {% comment %} ──────────────────────────────────
+    COMPARISON TABLE
+    HTML <table> with colspan group headers and two body sections:
+      DISPOSABLE BUNDLES  — Bronze, Silver, Gold, Platinum
+      REUSABLES           — Reusables Silver (5 colours), Reusables Gold (5 colours)
+  ────────────────────────────────── {% endcomment %}
+  <div class="bbct-tbl-wrap" role="region" aria-label="Detailed bundle comparison">
+    <table class="bbct-tbl">
+      <colgroup>
+        <col style="width:140px">
+        <col style="width:90px">
+        <col><col><col><col>
+        <col><col><col>
+        <col><col><col>
+      </colgroup>
+      <thead>
+        <tr class="bbct-tbl-groups">
+          <th colspan="2"></th>
+          <th colspan="4">What's Included</th>
+          <th colspan="3">Product Features</th>
+          <th colspan="3">Savings &amp; Delivery</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- ── Disposable Bundles section header ── -->
+        <tr class="bbct-tbl-shdr">
+          <th>Disposable Bundles</th>
+          <th>Price</th>
+          <th>Organic Bamboo<br>Nappies</th>
+          <th>Biodegradable<br>Wipes</th>
+          <th>Cornstarch<br>Nappy Sacks</th>
+          <th>Organic Sea<br>Sponge</th>
+          <th>Hypoallergenic</th>
+          <th>Non-toxic</th>
+          <th>Chlorine-free</th>
+          <th>Recyclable<br>packaging</th>
+          <th>&pound;20 off</th>
+          <th>Free<br>Delivery</th>
+        </tr>
+
+        <!-- Bronze -->
+        <tr class="bbct-tbl-row">
+          <td>Bronze</td>
+          <td><span class="bbct-td-was">&pound;43.25</span><span class="bbct-td-now">&pound;23.25</span></td>
+          <td><span class="bbct-td-num">2</span></td>
+          <td><span class="bbct-td-num">4</span></td>
+          <td><span class="bbct-td-dash">&mdash;</span></td>
+          <td><span class="bbct-td-dash">&mdash;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-cross">&#10007;</span></td>
+        </tr>
+
+        <!-- Silver -->
+        <tr class="bbct-tbl-row">
+          <td>Silver</td>
+          <td><span class="bbct-td-was">&pound;53.26</span><span class="bbct-td-now">&pound;33.26</span></td>
+          <td><span class="bbct-td-num">2</span></td>
+          <td><span class="bbct-td-num">6</span></td>
+          <td><span class="bbct-td-num">1</span></td>
+          <td><span class="bbct-td-dash">&mdash;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-cross">&#10007;</span></td>
+        </tr>
+
+        <!-- Gold -->
+        <tr class="bbct-tbl-row">
+          <td>Gold</td>
+          <td><span class="bbct-td-was">&pound;69.54</span><span class="bbct-td-now">&pound;49.54</span></td>
+          <td><span class="bbct-td-num">3</span></td>
+          <td><span class="bbct-td-num">6</span></td>
+          <td><span class="bbct-td-num">2</span></td>
+          <td><span class="bbct-td-dash">&mdash;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-cross">&#10007;</span></td>
+        </tr>
+
+        <!-- Platinum -->
+        <tr class="bbct-tbl-row">
+          <td>Platinum</td>
+          <td><span class="bbct-td-was">&pound;87.94</span><span class="bbct-td-now">&pound;67.94</span></td>
+          <td><span class="bbct-td-num">4</span></td>
+          <td><span class="bbct-td-num">6</span></td>
+          <td><span class="bbct-td-num">2</span></td>
+          <td><span class="bbct-td-num">1</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+        </tr>
+
+        <!-- ── Reusables section header ── -->
+        <tr class="bbct-tbl-shdr">
+          <th>Reusables</th>
+          <th></th>
+          <th>Reusable<br>nappies</th>
+          <th>Liners</th>
+          <th>Day<br>inserts</th>
+          <th>Night<br>inserts</th>
+          <th>Hypoallergenic</th>
+          <th>Breathable<br>fabric</th>
+          <th>Planet-friendly</th>
+          <th>Recyclable<br>packaging</th>
+          <th>&pound;20 off</th>
+          <th>Free<br>Delivery</th>
+        </tr>
+
+        <!-- Reusables Silver — 5 colour variants: Blue/Green/Pink/Turquoise/Yellow -->
+        <tr class="bbct-tbl-row">
+          <td>Reusables Silver</td>
+          <td><span class="bbct-td-was">&pound;66.44</span><span class="bbct-td-now">&pound;46.44</span></td>
+          <td><span class="bbct-td-num">2</span></td>
+          <td><span class="bbct-td-num">1</span></td>
+          <td><span class="bbct-td-num">1</span></td>
+          <td><span class="bbct-td-num">1</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-cross">&#10007;</span></td>
+        </tr>
+
+        <!-- Reusables Gold — 5 colour variants: Blue/Green/Pink/Turquoise/Yellow -->
+        <tr class="bbct-tbl-row">
+          <td>Reusables Gold</td>
+          <td><span class="bbct-td-was">&pound;91.44</span><span class="bbct-td-now">&pound;71.44</span></td>
+          <td><span class="bbct-td-num">3</span></td>
+          <td><span class="bbct-td-num">3</span></td>
+          <td><span class="bbct-td-num">2</span></td>
+          <td><span class="bbct-td-num">1</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+          <td><span class="ico-check">&#10003;</span></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div><!-- /.bbct-tbl-wrap -->
+
+  {% comment %} ──────────────────────────────────
+    MOBILE TABS (.bbct-mob)
+    Each panel card carries the same data-* attributes as the desktop
+    card so bbctOpen() works identically on mobile.
+  ────────────────────────────────── {% endcomment %}
+  <div class="bbct-mob">
+    <div class="bbct-mob-tabs" role="tablist">
+      <button class="bbct-mob-tab active" role="tab" onclick="bbctMobTab(this,'bbct-mob-bronze')">Bronze</button>
+      <button class="bbct-mob-tab"        role="tab" onclick="bbctMobTab(this,'bbct-mob-silver')">Silver</button>
+      <button class="bbct-mob-tab"        role="tab" onclick="bbctMobTab(this,'bbct-mob-gold')">Gold</button>
+      <button class="bbct-mob-tab"        role="tab" onclick="bbctMobTab(this,'bbct-mob-plat')">Platinum</button>
+      <button class="bbct-mob-tab"        role="tab" onclick="bbctMobTab(this,'bbct-mob-rsil')">Reusables Silver</button>
+      <button class="bbct-mob-tab"        role="tab" onclick="bbctMobTab(this,'bbct-mob-rgld')">Reusables Gold</button>
+    </div>
+    <div class="bbct-mob-panels">
+
+      <div id="bbct-mob-bronze" class="bbct-mob-panel active" role="tabpanel">
+        <div class="bbct-mob-card card-bronze"
+          data-tier="bronze" data-name="Bronze Bundle" data-price-p="2325"
+          data-one-size="false" data-is-colour="false"
+          data-vid0="REPLACE_VID_BRONZE_S1" data-vid1="REPLACE_VID_BRONZE_S2"
+          data-vid2="REPLACE_VID_BRONZE_S3" data-vid3="REPLACE_VID_BRONZE_S4"
+          data-vid4="REPLACE_VID_BRONZE_S5" data-vid5="REPLACE_VID_BRONZE_S6"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true" data-avail5="true"
+        >
+          <div class="bbct-mob-name">Bronze Bundle</div>
+          <div><span class="bbct-mob-was">&pound;43.25</span> <span class="bbct-mob-price">&pound;23.25</span> <span class="bbct-mob-save">Save &pound;20</span></div>
+          <ul class="bbct-mob-features">
+            <li><span class="ico-check">&#10003;</span> 2 Organic Bamboo Nappies</li>
+            <li><span class="ico-check">&#10003;</span> 4 Biodegradable Wipes</li>
+            <li><span class="ico-check">&#10003;</span> Hypoallergenic</li>
+            <li><span class="ico-check">&#10003;</span> &pound;20 off</li>
+            <li><span class="ico-cross">&#10007;</span> Free Delivery</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">Choose Size</button>
+        </div>
+      </div>
+
+      <div id="bbct-mob-silver" class="bbct-mob-panel" role="tabpanel">
+        <div class="bbct-mob-card card-silver"
+          data-tier="silver" data-name="Silver Bundle" data-price-p="3326"
+          data-one-size="false" data-is-colour="false"
+          data-vid0="REPLACE_VID_SILVER_S1" data-vid1="REPLACE_VID_SILVER_S2"
+          data-vid2="REPLACE_VID_SILVER_S3" data-vid3="REPLACE_VID_SILVER_S4"
+          data-vid4="REPLACE_VID_SILVER_S5" data-vid5="REPLACE_VID_SILVER_S6"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true" data-avail5="true"
+        >
+          <div class="bbct-mob-name">Silver Bundle</div>
+          <div><span class="bbct-mob-was">&pound;53.26</span> <span class="bbct-mob-price">&pound;33.26</span> <span class="bbct-mob-save">Save &pound;20</span></div>
+          <ul class="bbct-mob-features">
+            <li><span class="ico-check">&#10003;</span> 2 Organic Bamboo Nappies</li>
+            <li><span class="ico-check">&#10003;</span> 6 Biodegradable Wipes + 1 Nappy Sack</li>
+            <li><span class="ico-check">&#10003;</span> Hypoallergenic</li>
+            <li><span class="ico-check">&#10003;</span> &pound;20 off</li>
+            <li><span class="ico-cross">&#10007;</span> Free Delivery</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">Choose Size</button>
+        </div>
+      </div>
+
+      <div id="bbct-mob-gold" class="bbct-mob-panel" role="tabpanel">
+        <div class="bbct-mob-card card-gold"
+          data-tier="gold" data-name="Gold Bundle" data-price-p="4954"
+          data-one-size="false" data-is-colour="false"
+          data-vid0="REPLACE_VID_GOLD_S1" data-vid1="REPLACE_VID_GOLD_S2"
+          data-vid2="REPLACE_VID_GOLD_S3" data-vid3="REPLACE_VID_GOLD_S4"
+          data-vid4="REPLACE_VID_GOLD_S5" data-vid5="REPLACE_VID_GOLD_S6"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true" data-avail5="true"
+        >
+          <div class="bbct-mob-name">Gold Bundle &#11088; Most Popular</div>
+          <div><span class="bbct-mob-was">&pound;69.54</span> <span class="bbct-mob-price">&pound;49.54</span> <span class="bbct-mob-save">Save &pound;20</span></div>
+          <ul class="bbct-mob-features">
+            <li><span class="ico-check">&#10003;</span> 3 Organic Bamboo Nappies</li>
+            <li><span class="ico-check">&#10003;</span> 6 Biodegradable Wipes + 2 Nappy Sacks</li>
+            <li><span class="ico-check">&#10003;</span> Hypoallergenic</li>
+            <li><span class="ico-check">&#10003;</span> &pound;20 off</li>
+            <li><span class="ico-cross">&#10007;</span> Free Delivery</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">Choose Size</button>
+        </div>
+      </div>
+
+      <div id="bbct-mob-plat" class="bbct-mob-panel" role="tabpanel">
+        <div class="bbct-mob-card card-plat"
+          data-tier="platinum" data-name="Platinum Bundle" data-price-p="6794"
+          data-one-size="false" data-is-colour="false"
+          data-vid0="REPLACE_VID_PLATINUM_S1" data-vid1="REPLACE_VID_PLATINUM_S2"
+          data-vid2="REPLACE_VID_PLATINUM_S3" data-vid3="REPLACE_VID_PLATINUM_S4"
+          data-vid4="REPLACE_VID_PLATINUM_S5" data-vid5="REPLACE_VID_PLATINUM_S6"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true" data-avail5="true"
+        >
+          <div class="bbct-mob-name">Platinum Bundle</div>
+          <div><span class="bbct-mob-was">&pound;87.94</span> <span class="bbct-mob-price">&pound;67.94</span> <span class="bbct-mob-save">Save &pound;20</span></div>
+          <ul class="bbct-mob-features">
+            <li><span class="ico-check">&#10003;</span> 4 Organic Bamboo Nappies</li>
+            <li><span class="ico-check">&#10003;</span> 6 Wipes + 2 Nappy Sacks + 1 Sea Sponge</li>
+            <li><span class="ico-check">&#10003;</span> Hypoallergenic</li>
+            <li><span class="ico-check">&#10003;</span> &pound;20 off</li>
+            <li><span class="ico-check">&#10003;</span> Free Delivery</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">Choose Size</button>
+        </div>
+      </div>
+
+      <!-- Reusables Silver — colour picker -->
+      <div id="bbct-mob-rsil" class="bbct-mob-panel" role="tabpanel">
+        <div class="bbct-mob-card card-rsil"
+          data-tier="rsil" data-name="Reusables Silver Bundle" data-price-p="4644"
+          data-one-size="false" data-is-colour="true"
+          data-vid0="REPLACE_VID_RS_BL" data-vid1="REPLACE_VID_RS_GR"
+          data-vid2="REPLACE_VID_RS_PI" data-vid3="REPLACE_VID_RS_TU"
+          data-vid4="REPLACE_VID_RS_YE"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true"
+        >
+          <div class="bbct-mob-name">Reusables Silver Bundle</div>
+          <div><span class="bbct-mob-was">&pound;66.44</span> <span class="bbct-mob-price">&pound;46.44</span> <span class="bbct-mob-save">Save &pound;20</span></div>
+          <ul class="bbct-mob-features">
+            <li><span class="ico-check">&#10003;</span> 5 colour options (Blue/Green/Pink/Turquoise/Yellow)</li>
+            <li><span class="ico-check">&#10003;</span> 2 Reusable nappies + 1 Liner</li>
+            <li><span class="ico-check">&#10003;</span> 1 Day insert + 1 Night insert</li>
+            <li><span class="ico-check">&#10003;</span> Hypoallergenic &middot; Planet-friendly</li>
+            <li><span class="ico-check">&#10003;</span> &pound;20 off</li>
+            <li><span class="ico-cross">&#10007;</span> Free Delivery</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">Choose Colour</button>
+        </div>
+      </div>
+
+      <!-- Reusables Gold — colour picker -->
+      <div id="bbct-mob-rgld" class="bbct-mob-panel" role="tabpanel">
+        <div class="bbct-mob-card card-rgld"
+          data-tier="rgld" data-name="Reusables Gold Bundle" data-price-p="7144"
+          data-one-size="false" data-is-colour="true"
+          data-vid0="REPLACE_VID_RG_BL" data-vid1="REPLACE_VID_RG_GR"
+          data-vid2="REPLACE_VID_RG_PI" data-vid3="REPLACE_VID_RG_TU"
+          data-vid4="REPLACE_VID_RG_YE"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true"
+        >
+          <div class="bbct-mob-name">Reusables Gold Bundle</div>
+          <div><span class="bbct-mob-was">&pound;91.44</span> <span class="bbct-mob-price">&pound;71.44</span> <span class="bbct-mob-save">Save &pound;20</span></div>
+          <ul class="bbct-mob-features">
+            <li><span class="ico-check">&#10003;</span> 5 colour options (Blue/Green/Pink/Turquoise/Yellow)</li>
+            <li><span class="ico-check">&#10003;</span> 3 Reusable nappies + 3 Liners</li>
+            <li><span class="ico-check">&#10003;</span> 2 Day inserts + 1 Night insert</li>
+            <li><span class="ico-check">&#10003;</span> Hypoallergenic &middot; Planet-friendly</li>
+            <li><span class="ico-check">&#10003;</span> &pound;20 off</li>
+            <li><span class="ico-check">&#10003;</span> Free Delivery</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">Choose Colour</button>
+        </div>
+      </div>
+
+    </div><!-- /.bbct-mob-panels -->
+  </div><!-- /.bbct-mob -->
+
+  {% comment %} ──────────────────────────────────
+    SIZE / COLOUR PICKER MODAL
+    Populated dynamically by bbctOpen()
+  ────────────────────────────────── {% endcomment %}
+  <div class="bbct-modal-overlay" id="bbct-modal-{{ section.id }}" role="dialog" aria-modal="true" aria-labelledby="bbct-modal-title-{{ section.id }}">
+    <div class="bbct-modal">
+      <button class="bbct-modal-close" onclick="bbctClose('{{ section.id }}')" aria-label="Close">&times;</button>
+      <div class="bbct-modal-body" id="bbct-modal-body-{{ section.id }}"><!-- populated by bbctOpen() --></div>
+      <div class="bbct-modal-success" id="bbct-modal-success-{{ section.id }}">
+        <div class="bbct-modal-success-icon">&#127881;</div>
+        <h3>Added to your bag!</h3>
+        <p>Head to checkout when you're ready.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+<script>
+(function () {
+  'use strict';
+
+  var COLOURS = [
+    { name: 'Blue',      hex: '#4a90d9' },
+    { name: 'Green',     hex: '#3a7d5e' },
+    { name: 'Pink',      hex: '#e879a0' },
+    { name: 'Turquoise', hex: '#0d9488' },
+    { name: 'Yellow',    hex: '#f59e0b' }
+  ];
+  var SIZES = ['Size 1', 'Size 2', 'Size 3', 'Size 4', 'Size 5', 'Size 6'];
+
+  function fmtPrice(pence) { return '\u00a3' + (pence / 100).toFixed(2); }
+
+  function getVariants(card) {
+    var vids = [], avails = [];
+    for (var i = 0; i <= 5; i++) {
+      var vid = card.dataset['vid' + i];
+      var av  = card.dataset['avail' + i];
+      if (vid !== undefined) { vids.push(vid); avails.push(av !== 'false'); }
+    }
+    return { vids: vids, avails: avails };
+  }
+
+  function getSectionId(card) {
+    var sec = card.closest('section[id^="bbct-"]');
+    return sec ? sec.id.replace('bbct-', '') : '';
+  }
+
+  window.bbctOpen = function (card) {
+    var sid     = getSectionId(card);
+    var overlay = document.getElementById('bbct-modal-' + sid);
+    var body    = document.getElementById('bbct-modal-body-' + sid);
+    var success = document.getElementById('bbct-modal-success-' + sid);
+    if (!overlay || !body) return;
+
+    var d        = card.dataset;
+    var name     = d.name   || 'Product';
+    var priceP   = parseInt(d.priceP || '0', 10);
+    var isColour = d.isColour === 'true';
+    var variants = getVariants(card);
+
+    success.classList.remove('show');
+    body.style.display = '';
+
+    var html = '';
+    html += '<div class="bbct-modal-product">' + escHtml(name) + '</div>';
+    html += '<h2 class="bbct-modal-title" id="bbct-modal-title-' + sid + '">' +
+            (isColour ? 'Select your colour:' : 'Select your nappy size:') + '</h2>';
+    html += '<div class="bbct-modal-price">' + fmtPrice(priceP) + '</div>';
+    html += '<div class="bbct-msz-grid">';
+
+    for (var i = 0; i < variants.vids.length; i++) {
+      var vid   = variants.vids[i];
+      var avail = variants.avails[i];
+      var ucls  = avail ? '' : ' unavail';
+      if (isColour) {
+        var col = COLOURS[i] || { name: 'Colour ' + (i + 1), hex: '#aaa' };
+        html += '<button class="bbct-msz-btn' + ucls + '" data-vid="' + escAttr(vid) + '" data-label="' + escAttr(col.name) + '" ' + (avail ? '' : 'disabled ') + 'onclick="bbctSelectVariant(this)">' +
+                '<span class="bbct-msz-swatch" style="background:' + col.hex + '"></span>' + escHtml(col.name) + '</button>';
+      } else {
+        var sz = SIZES[i] || ('Size ' + (i + 1));
+        html += '<button class="bbct-msz-btn' + ucls + '" data-vid="' + escAttr(vid) + '" data-label="' + escAttr(sz) + '" ' + (avail ? '' : 'disabled ') + 'onclick="bbctSelectVariant(this)">' + escHtml(sz) + '</button>';
+      }
+    }
+
+    html += '</div>';
+    html += '<button class="bbct-modal-atc" id="bbct-atc-' + sid + '" disabled onclick="bbctAddToCart(\''+ sid + '\')">' + 'Add to Bag</button>';
+    html += '<p class="bbct-modal-notice">Free UK delivery on all subscription orders.</p>';
+
+    body.innerHTML = html;
+    overlay.dataset.isColour = isColour ? 'true' : 'false';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.bbctSelectVariant = function (btn) {
+    var grid = btn.closest('.bbct-msz-grid');
+    if (!grid) return;
+    grid.querySelectorAll('.bbct-msz-btn').forEach(function (b) { b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    var overlay = btn.closest('.bbct-modal-overlay');
+    if (!overlay) return;
+    var sid    = overlay.id.replace('bbct-modal-', '');
+    var atcBtn = document.getElementById('bbct-atc-' + sid);
+    if (!atcBtn) return;
+    atcBtn.disabled = false;
+    atcBtn.dataset.selectedVid = btn.dataset.vid || '';
+    atcBtn.textContent = 'Add to Bag \u2014 ' + (btn.dataset.label || '');
+  };
+
+  window.bbctAddToCart = function (sid) {
+    var atcBtn = document.getElementById('bbct-atc-' + sid);
+    if (!atcBtn || atcBtn.disabled) return;
+    var vid = atcBtn.dataset.selectedVid;
+    if (!vid) return;
+    atcBtn.disabled    = true;
+    atcBtn.textContent = 'Adding\u2026';
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ id: vid, quantity: 1 })
+    })
+    .then(function (res) { if (!res.ok) throw new Error('Cart error ' + res.status); return res.json(); })
+    .then(function () {
+      var body    = document.getElementById('bbct-modal-body-' + sid);
+      var success = document.getElementById('bbct-modal-success-' + sid);
+      if (body)    body.style.display = 'none';
+      if (success) success.classList.add('show');
+      if (typeof window.Shopify !== 'undefined' && typeof window.Shopify.onCartUpdate === 'function') {
+        fetch('/cart.js').then(function (r) { return r.json(); }).then(window.Shopify.onCartUpdate);
+      }
+    })
+    .catch(function (err) {
+      console.error('[bbct] Add to cart failed:', err);
+      atcBtn.disabled    = false;
+      atcBtn.textContent = 'Error \u2014 try again';
+    });
+  };
+
+  window.bbctClose = function (sid) {
+    var overlay = document.getElementById('bbct-modal-' + sid);
+    if (!overlay) return;
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('bbct-modal-overlay')) {
+      e.target.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.bbct-modal-overlay.open').forEach(function (o) {
+        o.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+
+  window.bbctMobTab = function (tab, panelId) {
+    var tabBar = tab.closest('.bbct-mob-tabs');
+    if (tabBar) {
+      tabBar.querySelectorAll('.bbct-mob-tab').forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+    }
+    var panels = tab.closest('.bbct-mob').querySelectorAll('.bbct-mob-panel');
+    panels.forEach(function (p) { p.classList.remove('active'); });
+    var target = document.getElementById(panelId);
+    if (target) target.classList.add('active');
+  };
+
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function escAttr(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  }
+})();
+</script>
+{% schema %}
+{
+  "name": "BB Compare Table",
+  "tag": "section",
+  "class": "bb-compare-table-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Try more for less — £20 off our essential bundles"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Explore our carefully selected bundles and enjoy exceptional value on gentle products made without harsh chemicals, parabens or unnecessary additives."
+    },
+    {
+      "type": "header",
+      "content": "Product Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "bronze_image",
+      "label": "Bronze Bundle image"
+    },
+    {
+      "type": "image_picker",
+      "id": "silver_image",
+      "label": "Silver Bundle image"
+    },
+    {
+      "type": "image_picker",
+      "id": "gold_image",
+      "label": "Gold Bundle image"
+    },
+    {
+      "type": "image_picker",
+      "id": "platinum_image",
+      "label": "Platinum Bundle image"
+    },
+    {
+      "type": "image_picker",
+      "id": "rsil_image",
+      "label": "Reusables Silver Bundle image"
+    },
+    {
+      "type": "image_picker",
+      "id": "rgld_image",
+      "label": "Reusables Gold Bundle image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BB Compare Table",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
