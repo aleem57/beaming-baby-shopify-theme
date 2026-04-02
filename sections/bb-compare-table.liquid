@@ -1,0 +1,1641 @@
+{% comment %}
+============================================================
+  BEAMING BABY — Amazon-Style Comparison Table
+  Section file: sections/bb-compare-table.liquid
+============================================================
+
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  VARIANT ID PLACEHOLDERS                                         ║
+  ║  Replace every placeholder string below with the real numeric    ║
+  ║  Shopify variant ID once the products are set up in admin.       ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  DISPOSABLE TIERS — Size Variants (Sizes 1–6)                   ║
+  ║                                                                  ║
+  ║  Bronze:                                                         ║
+  ║    Size 1: REPLACE_VID_BRONZE_S1                                 ║
+  ║    Size 2: REPLACE_VID_BRONZE_S2                                 ║
+  ║    Size 3: REPLACE_VID_BRONZE_S3                                 ║
+  ║    Size 4: REPLACE_VID_BRONZE_S4                                 ║
+  ║    Size 5: REPLACE_VID_BRONZE_S5                                 ║
+  ║    Size 6: REPLACE_VID_BRONZE_S6                                 ║
+  ║                                                                  ║
+  ║  Silver:                                                         ║
+  ║    Size 1: REPLACE_VID_SILVER_S1                                 ║
+  ║    Size 2: REPLACE_VID_SILVER_S2                                 ║
+  ║    Size 3: REPLACE_VID_SILVER_S3                                 ║
+  ║    Size 4: REPLACE_VID_SILVER_S4                                 ║
+  ║    Size 5: REPLACE_VID_SILVER_S5                                 ║
+  ║    Size 6: REPLACE_VID_SILVER_S6                                 ║
+  ║                                                                  ║
+  ║  Gold:                                                           ║
+  ║    Size 1: REPLACE_VID_GOLD_S1                                   ║
+  ║    Size 2: REPLACE_VID_GOLD_S2                                   ║
+  ║    Size 3: REPLACE_VID_GOLD_S3                                   ║
+  ║    Size 4: REPLACE_VID_GOLD_S4                                   ║
+  ║    Size 5: REPLACE_VID_GOLD_S5                                   ║
+  ║    Size 6: REPLACE_VID_GOLD_S6                                   ║
+  ║                                                                  ║
+  ║  Platinum:                                                       ║
+  ║    Size 1: REPLACE_VID_PLATINUM_S1                               ║
+  ║    Size 2: REPLACE_VID_PLATINUM_S2                               ║
+  ║    Size 3: REPLACE_VID_PLATINUM_S3                               ║
+  ║    Size 4: REPLACE_VID_PLATINUM_S4                               ║
+  ║    Size 5: REPLACE_VID_PLATINUM_S5                               ║
+  ║    Size 6: REPLACE_VID_PLATINUM_S6                               ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  REUSABLE TIERS — Colour Variants                                ║
+  ║                                                                  ║
+  ║  Reusables Silver (SKU prefix: BB20VRS):                         ║
+  ║    Blue      (BB20VRSBL): REPLACE_VID_RS_BL                      ║
+  ║    Green     (BB20VRSGR): REPLACE_VID_RS_GR                      ║
+  ║    Pink      (BB20VRSPI): REPLACE_VID_RS_PI                      ║
+  ║    Turquoise (BB20VRSTU): REPLACE_VID_RS_TU                      ║
+  ║    Yellow    (BB20VRSYE): REPLACE_VID_RS_YE                      ║
+  ║                                                                  ║
+  ║  Reusables Gold (SKU prefix: BB20VRG):                           ║
+  ║    Blue      (BB20VRGBL): REPLACE_VID_RG_BL                      ║
+  ║    Green     (BB20VRGGR): REPLACE_VID_RG_GR                      ║
+  ║    Pink      (BB20VRGPI): REPLACE_VID_RG_PI                      ║
+  ║    Turquoise (BB20VRGTU): REPLACE_VID_RG_TU                      ║
+  ║    Yellow    (BB20VRGYE): REPLACE_VID_RG_YE                      ║
+  ╚══════════════════════════════════════════════════════════════════╝
+{% endcomment %}
+
+<style>
+/* ─── ROOT VARS ─── */
+#bbct-{{ section.id }} {
+  --green:         #3a7d5e;
+  --green-dk:      #2c6349;
+  --green-lt:      #e8f5ee;
+  --cream:         #f7f5f0;
+  --white:         #ffffff;
+  --border:        #e2e8e2;
+  --text:          #1a2e1a;
+  --muted:         #6b7a6b;
+  --bronze:        #a0b08c;
+  --bronze-lt:     #fdf0ea;
+  --silver:        #ea6d4e;
+  --silver-lt:     #e8f1f7;
+  --gold:          #a0b08c;
+  --gold-lt:       #fdf0ea;
+  --platinum:      #ea6d4e;
+  --platinum-lt:   #e8f1f7;
+  --reusable-sml:  #a0b08c;
+  --reusable-sml-lt: #fdf0ea;
+  --reusable-lge:  #ea6d4e;
+  --reusable-lge-lt: #e8f1f7;
+  --red:           #e05a44;
+  --star:          #f59e0b;
+  --check:         #3a7d5e;
+  --row-alt:       #f9faf9;
+  --shadow:        0 4px 24px rgba(26,46,26,.08);
+  --shadow-md:     0 8px 40px rgba(26,46,26,.14);
+  --radius:        12px;
+  --radius-sm:     8px;
+}
+
+/* ─── SECTION WRAPPER ─── */
+#bbct-{{ section.id }} {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--cream);
+  padding: 48px 0 64px;
+}
+
+/* ─── HEADINGS ─── */
+.bbct-heading {
+  text-align: center;
+  margin-bottom: 36px;
+  padding: 0 16px;
+}
+.bbct-heading h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--green-dk);
+  margin: 0 0 8px;
+}
+.bbct-heading p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ─── DESKTOP SCROLL ─── */
+.bbct-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+.bbct-cols {
+  display: grid;
+  grid-template-columns: 200px repeat(6, minmax(160px, 1fr));
+  min-width: 900px;
+  gap: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin: 0 16px 32px;
+}
+
+/* label column */
+.bbct-label-col {
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+.bbct-label-col .bbct-feature-label {
+  padding: 14px 16px;
+  font-size: 0.825rem;
+  color: var(--muted);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+}
+.bbct-label-col .bbct-feature-label:first-child {
+  min-height: 220px;
+  align-items: flex-end;
+  font-size: 0.75rem;
+  color: transparent;
+}
+
+/* product column header card */
+.bbct-col {
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+.bbct-col:last-child { border-right: none; }
+
+.bbct-card {
+  padding: 20px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: 3px solid var(--border);
+  min-height: 220px;
+  justify-content: flex-start;
+  gap: 6px;
+  position: relative;
+}
+.bbct-card.tier-bronze     { border-bottom-color: var(--bronze); }
+.bbct-card.tier-silver     { border-bottom-color: var(--silver); }
+.bbct-card.tier-gold       { border-bottom-color: var(--gold); }
+.bbct-card.tier-platinum   { border-bottom-color: var(--platinum); }
+.bbct-card.tier-rsil       { border-bottom-color: var(--reusable-sml); }
+.bbct-card.tier-rgld       { border-bottom-color: var(--reusable-lge); }
+
+.bbct-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin-bottom: 4px;
+}
+.tier-bronze   .bbct-badge { background: var(--bronze-lt);       color: var(--bronze); }
+.tier-silver   .bbct-badge { background: var(--silver-lt);       color: var(--silver); }
+.tier-gold     .bbct-badge { background: var(--gold-lt);         color: var(--gold); }
+.tier-platinum .bbct-badge { background: var(--platinum-lt);     color: var(--platinum); }
+.tier-rsil     .bbct-badge { background: var(--reusable-sml-lt); color: var(--reusable-sml); }
+.tier-rgld     .bbct-badge { background: var(--reusable-lge-lt); color: var(--reusable-lge); }
+
+.bbct-card-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+.bbct-card-price {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--green-dk);
+  line-height: 1;
+}
+.bbct-card-was {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.bbct-card-save {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--red);
+  background: #fef2f2;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.bbct-stars {
+  color: var(--star);
+  font-size: 0.75rem;
+  letter-spacing: -1px;
+}
+.bbct-atc-btn {
+  display: inline-block;
+  width: 100%;
+  margin-top: auto;
+  padding: 9px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity .15s, transform .1s;
+  text-align: center;
+}
+.bbct-atc-btn:hover  { opacity: .88; transform: translateY(-1px); }
+.bbct-atc-btn:active { transform: translateY(0); }
+.tier-bronze   .bbct-atc-btn { background: var(--bronze);       color: #fff; }
+.tier-silver   .bbct-atc-btn { background: var(--silver);       color: #fff; }
+.tier-gold     .bbct-atc-btn { background: var(--gold);         color: #fff; }
+.tier-platinum .bbct-atc-btn { background: var(--platinum);     color: #fff; }
+.tier-rsil     .bbct-atc-btn { background: var(--reusable-sml); color: #fff; }
+.tier-rgld     .bbct-atc-btn { background: var(--reusable-lge); color: #fff; }
+
+/* feature value cells */
+.bbct-cell {
+  padding: 14px 12px;
+  font-size: 0.825rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+}
+.bbct-col:nth-child(odd) .bbct-cell { background: var(--row-alt); }
+.bbct-cell .check { color: var(--check); font-size: 1rem; }
+.bbct-cell .cross  { color: #ccc; font-size: 1rem; }
+.bbct-cell-text   { color: var(--text); font-weight: 600; font-size: 0.775rem; }
+
+/* ─── COMPARISON GRID WRAP ─── */
+.bbct-grid-wrap {
+  margin: 0 16px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: var(--white);
+}
+.bbct-grid-hdr {
+  display: grid;
+  grid-template-columns: 200px repeat(6, 1fr);
+  background: var(--green-dk);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  min-width: 900px;
+}
+.bbct-grid-hdr-cell {
+  padding: 12px 10px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,.15);
+}
+.bbct-grid-hdr-cell:last-child { border-right: none; }
+.bbct-grid-hdr-cell:first-child { text-align: left; }
+
+.bbct-grid-row {
+  display: grid;
+  grid-template-columns: 200px repeat(6, 1fr);
+  border-top: 1px solid var(--border);
+  min-width: 900px;
+}
+.bbct-grid-row:nth-child(even) { background: var(--row-alt); }
+.bbct-grid-cell {
+  padding: 13px 10px;
+  font-size: 0.825rem;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bbct-grid-cell:last-child { border-right: none; }
+.bbct-grid-cell:first-child {
+  text-align: left;
+  justify-content: flex-start;
+  font-weight: 600;
+  color: var(--text);
+}
+.bbct-grid-cell .check { color: var(--check); }
+.bbct-grid-cell .cross  { color: #ccc; }
+.bbct-grid-price {
+  font-weight: 700;
+  color: var(--green-dk);
+  font-size: 0.875rem;
+}
+.bbct-grid-was {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-decoration: line-through;
+  display: block;
+}
+
+/* ─── MOBILE TABS ─── */
+.bbct-mob {
+  display: none;
+  margin: 0 12px 32px;
+}
+.bbct-mob-tabs {
+  display: flex;
+  overflow-x: auto;
+  gap: 8px;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.bbct-mob-tab {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  background: var(--white);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color .15s, color .15s;
+}
+.bbct-mob-tab.active {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-lt);
+}
+.bbct-mob-panels { margin-top: 12px; }
+.bbct-mob-panel  { display: none; }
+.bbct-mob-panel.active { display: block; }
+
+.bbct-mob-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 4px solid var(--border);
+}
+.bbct-mob-card.tier-bronze   { border-top-color: var(--bronze); }
+.bbct-mob-card.tier-silver   { border-top-color: var(--silver); }
+.bbct-mob-card.tier-gold     { border-top-color: var(--gold); }
+.bbct-mob-card.tier-platinum { border-top-color: var(--platinum); }
+.bbct-mob-card.tier-rsil     { border-top-color: var(--reusable-sml); }
+.bbct-mob-card.tier-rgld     { border-top-color: var(--reusable-lge); }
+
+.bbct-mob-name  { font-size: 1rem; font-weight: 700; color: var(--text); }
+.bbct-mob-price { font-size: 1.3rem; font-weight: 800; color: var(--green-dk); }
+.bbct-mob-was   { font-size: 0.8rem; color: var(--muted); text-decoration: line-through; }
+.bbct-mob-save  { font-size: 0.75rem; font-weight: 700; color: var(--red); }
+.bbct-mob-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.bbct-mob-features li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+.bbct-mob-features li .check { color: var(--check); }
+.bbct-mob-features li .cross  { color: #ccc; }
+
+/* ─── MODAL ─── */
+.bbct-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.bbct-modal-overlay.open { display: flex; }
+.bbct-modal {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 28px 24px 24px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.bbct-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--muted);
+  line-height: 1;
+  padding: 0;
+}
+.bbct-modal-close:hover { color: var(--text); }
+.bbct-modal-product {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.bbct-modal-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 16px;
+}
+.bbct-msz-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.bbct-msz-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  text-align: center;
+  gap: 4px;
+}
+.bbct-msz-btn:hover   { border-color: var(--green); background: var(--green-lt); }
+.bbct-msz-btn.selected {
+  border-color: var(--green);
+  background: var(--green-lt);
+  color: var(--green-dk);
+}
+.bbct-msz-btn.unavail {
+  opacity: .4;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+/* ─── COLOUR SWATCH ─── */
+.bbct-msz-swatch {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-bottom: 4px;
+  border: 2px solid rgba(255,255,255,0.6);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+}
+.bbct-modal-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--green-dk);
+  margin-bottom: 16px;
+}
+.bbct-modal-atc {
+  width: 100%;
+  padding: 13px 18px;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+}
+.bbct-modal-atc:hover  { background: var(--green-dk); }
+.bbct-modal-atc:active { transform: scale(.98); }
+.bbct-modal-atc:disabled {
+  background: var(--border);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+.bbct-modal-notice {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 10px;
+}
+/* ─── SUCCESS STATE ─── */
+.bbct-modal-success {
+  display: none;
+  text-align: center;
+  padding: 16px 0;
+}
+.bbct-modal-success.show { display: block; }
+.bbct-modal-success-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.bbct-modal-success h3   { font-size: 1.1rem; font-weight: 700; color: var(--green-dk); margin: 0 0 6px; }
+.bbct-modal-success p    { font-size: 0.85rem; color: var(--muted); margin: 0; }
+.bbct-modal-body {}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .bbct-scroll     { display: none; }
+  .bbct-grid-wrap  { display: none; }
+  .bbct-mob        { display: block; }
+}
+@media (min-width: 769px) {
+  .bbct-mob { display: none; }
+}
+</style>
+
+{% comment %} ── SECTION HTML ── {% endcomment %}
+<section id="bbct-{{ section.id }}" aria-label="Product comparison table">
+
+  {% comment %} ── Heading ── {% endcomment %}
+  <div class="bbct-heading">
+    <h2>{{ section.settings.heading | default: "Compare Our Nappy Ranges" }}</h2>
+    <p>{{ section.settings.subheading | default: "Find the perfect fit for your baby and your lifestyle" }}</p>
+  </div>
+
+  {% comment %} ──────────────────────────────────
+    DESKTOP COMPARISON TABLE (.bbct-scroll)
+    Each product column (th) carries data-* attributes
+    consumed by bbctOpen() to build the modal.
+
+    data-tier        : tier key
+    data-name        : display name
+    data-price-p     : price in pence
+    data-one-size    : "true" | "false"
+    data-is-colour   : "true" (colour picker) | "false" (size picker)
+    data-vid0–vid4/5 : Shopify variant IDs
+    data-avail0–…    : "true" | "false" per variant
+  ────────────────────────────────── {% endcomment %}
+
+  <div class="bbct-scroll" role="region" aria-label="Product comparison — scroll horizontally">
+    <div class="bbct-cols" role="table">
+
+      {% comment %} ── Label column ── {% endcomment %}
+      <div class="bbct-label-col" role="rowgroup">
+        <div class="bbct-feature-label" role="columnheader">Features</div>
+        <div class="bbct-feature-label">Monthly price</div>
+        <div class="bbct-feature-label">Type</div>
+        <div class="bbct-feature-label">Eco-certified</div>
+        <div class="bbct-feature-label">Chemical-free</div>
+        <div class="bbct-feature-label">Fragrance-free</div>
+        <div class="bbct-feature-label">Chlorine-free bleach</div>
+        <div class="bbct-feature-label">Biodegradable materials</div>
+        <div class="bbct-feature-label">Organic cotton top-sheet</div>
+        <div class="bbct-feature-label">Free from latex</div>
+        <div class="bbct-feature-label">Hypoallergenic</div>
+        <div class="bbct-feature-label">Dermatologically tested</div>
+        <div class="bbct-feature-label">Suitable from birth</div>
+        <div class="bbct-feature-label">Reusable</div>
+      </div>
+
+      {% comment %} ── BRONZE ── {% endcomment %}
+      <div class="bbct-col" role="columnheader">
+        <div class="bbct-card tier-bronze"
+          data-tier="bronze"
+          data-name="Bronze"
+          data-price-p="1999"
+          data-one-size="false"
+          data-is-colour="false"
+          data-vid0="REPLACE_VID_BRONZE_S1"
+          data-vid1="REPLACE_VID_BRONZE_S2"
+          data-vid2="REPLACE_VID_BRONZE_S3"
+          data-vid3="REPLACE_VID_BRONZE_S4"
+          data-vid4="REPLACE_VID_BRONZE_S5"
+          data-vid5="REPLACE_VID_BRONZE_S6"
+          data-avail0="true"
+          data-avail1="true"
+          data-avail2="true"
+          data-avail3="true"
+          data-avail4="true"
+          data-avail5="true"
+        >
+          <span class="bbct-badge">Bronze</span>
+          <span class="bbct-card-name">Eco Disposables<br>Bronze</span>
+          <div class="bbct-stars">★★★☆☆</div>
+          <div class="bbct-card-price">£19.99</div>
+          <div class="bbct-card-was">£24.99</div>
+          <div class="bbct-card-save">Save £5</div>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">
+            Choose Size
+          </button>
+        </div>
+        <div class="bbct-cell"><span class="bbct-cell-text">£19.99/mo</span></div>
+        <div class="bbct-cell"><span class="bbct-cell-text">Disposable</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+      </div>
+
+      {% comment %} ── SILVER ── {% endcomment %}
+      <div class="bbct-col" role="columnheader">
+        <div class="bbct-card tier-silver"
+          data-tier="silver"
+          data-name="Silver"
+          data-price-p="2999"
+          data-one-size="false"
+          data-is-colour="false"
+          data-vid0="REPLACE_VID_SILVER_S1"
+          data-vid1="REPLACE_VID_SILVER_S2"
+          data-vid2="REPLACE_VID_SILVER_S3"
+          data-vid3="REPLACE_VID_SILVER_S4"
+          data-vid4="REPLACE_VID_SILVER_S5"
+          data-vid5="REPLACE_VID_SILVER_S6"
+          data-avail0="true"
+          data-avail1="true"
+          data-avail2="true"
+          data-avail3="true"
+          data-avail4="true"
+          data-avail5="true"
+        >
+          <span class="bbct-badge">Silver</span>
+          <span class="bbct-card-name">Eco Disposables<br>Silver</span>
+          <div class="bbct-stars">★★★★☆</div>
+          <div class="bbct-card-price">£29.99</div>
+          <div class="bbct-card-was">£34.99</div>
+          <div class="bbct-card-save">Save £5</div>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">
+            Choose Size
+          </button>
+        </div>
+        <div class="bbct-cell"><span class="bbct-cell-text">£29.99/mo</span></div>
+        <div class="bbct-cell"><span class="bbct-cell-text">Disposable</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+      </div>
+
+      {% comment %} ── GOLD ── {% endcomment %}
+      <div class="bbct-col" role="columnheader">
+        <div class="bbct-card tier-gold"
+          data-tier="gold"
+          data-name="Gold"
+          data-price-p="3999"
+          data-one-size="false"
+          data-is-colour="false"
+          data-vid0="REPLACE_VID_GOLD_S1"
+          data-vid1="REPLACE_VID_GOLD_S2"
+          data-vid2="REPLACE_VID_GOLD_S3"
+          data-vid3="REPLACE_VID_GOLD_S4"
+          data-vid4="REPLACE_VID_GOLD_S5"
+          data-vid5="REPLACE_VID_GOLD_S6"
+          data-avail0="true"
+          data-avail1="true"
+          data-avail2="true"
+          data-avail3="true"
+          data-avail4="true"
+          data-avail5="true"
+        >
+          <span class="bbct-badge">Gold</span>
+          <span class="bbct-card-name">Eco Disposables<br>Gold</span>
+          <div class="bbct-stars">★★★★☆</div>
+          <div class="bbct-card-price">£39.99</div>
+          <div class="bbct-card-was">£44.99</div>
+          <div class="bbct-card-save">Save £5</div>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">
+            Choose Size
+          </button>
+        </div>
+        <div class="bbct-cell"><span class="bbct-cell-text">£39.99/mo</span></div>
+        <div class="bbct-cell"><span class="bbct-cell-text">Disposable</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+      </div>
+
+      {% comment %} ── PLATINUM ── {% endcomment %}
+      <div class="bbct-col" role="columnheader">
+        <div class="bbct-card tier-platinum"
+          data-tier="platinum"
+          data-name="Platinum"
+          data-price-p="4999"
+          data-one-size="false"
+          data-is-colour="false"
+          data-vid0="REPLACE_VID_PLATINUM_S1"
+          data-vid1="REPLACE_VID_PLATINUM_S2"
+          data-vid2="REPLACE_VID_PLATINUM_S3"
+          data-vid3="REPLACE_VID_PLATINUM_S4"
+          data-vid4="REPLACE_VID_PLATINUM_S5"
+          data-vid5="REPLACE_VID_PLATINUM_S6"
+          data-avail0="true"
+          data-avail1="true"
+          data-avail2="true"
+          data-avail3="true"
+          data-avail4="true"
+          data-avail5="true"
+        >
+          <span class="bbct-badge">Platinum</span>
+          <span class="bbct-card-name">Eco Disposables<br>Platinum</span>
+          <div class="bbct-stars">★★★★★</div>
+          <div class="bbct-card-price">£49.99</div>
+          <div class="bbct-card-was">£54.99</div>
+          <div class="bbct-card-save">Save £5</div>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">
+            Choose Size
+          </button>
+        </div>
+        <div class="bbct-cell"><span class="bbct-cell-text">£49.99/mo</span></div>
+        <div class="bbct-cell"><span class="bbct-cell-text">Disposable</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="cross">✗</span></div>
+      </div>
+
+      {% comment %} ── REUSABLES SILVER ──
+        data-one-size="false"  — multiple variants
+        data-is-colour="true"  — colour picker (not size picker)
+        data-vid0–4            — 5 colour variant IDs (Blue/Green/Pink/Turquoise/Yellow)
+        data-avail0–4          — availability per colour
+        Prices: £46.44 full / £26.44 with £20 off
+      ── {% endcomment %}
+      <div class="bbct-col" role="columnheader">
+        <div class="bbct-card tier-rsil"
+          data-tier="rsil"
+          data-name="Reusables Silver"
+          data-price-p="4644"
+          data-one-size="false"
+          data-is-colour="true"
+          data-vid0="REPLACE_VID_RS_BL"
+          data-vid1="REPLACE_VID_RS_GR"
+          data-vid2="REPLACE_VID_RS_PI"
+          data-vid3="REPLACE_VID_RS_TU"
+          data-vid4="REPLACE_VID_RS_YE"
+          data-avail0="true"
+          data-avail1="true"
+          data-avail2="true"
+          data-avail3="true"
+          data-avail4="true"
+        >
+          <span class="bbct-badge">Reusable</span>
+          <span class="bbct-card-name">Reusables<br>Silver</span>
+          <div class="bbct-stars">★★★★☆</div>
+          <div class="bbct-card-price">£46.44</div>
+          <div class="bbct-card-save">£20 off → £26.44</div>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">
+            Choose Colour
+          </button>
+        </div>
+        <div class="bbct-cell">
+          <span class="bbct-cell-text">
+            £46.44<br>
+            <small style="color:var(--red);font-weight:700;">£26.44 with £20 off</small>
+          </span>
+        </div>
+        <div class="bbct-cell"><span class="bbct-cell-text">Reusable</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+      </div>
+
+      {% comment %} ── REUSABLES GOLD ──
+        data-one-size="false"  — multiple variants
+        data-is-colour="true"  — colour picker (not size picker)
+        data-vid0–4            — 5 colour variant IDs (Blue/Green/Pink/Turquoise/Yellow)
+        data-avail0–4          — availability per colour
+        Prices: £71.44 full / £51.44 with £20 off
+      ── {% endcomment %}
+      <div class="bbct-col" role="columnheader">
+        <div class="bbct-card tier-rgld"
+          data-tier="rgld"
+          data-name="Reusables Gold"
+          data-price-p="7144"
+          data-one-size="false"
+          data-is-colour="true"
+          data-vid0="REPLACE_VID_RG_BL"
+          data-vid1="REPLACE_VID_RG_GR"
+          data-vid2="REPLACE_VID_RG_PI"
+          data-vid3="REPLACE_VID_RG_TU"
+          data-vid4="REPLACE_VID_RG_YE"
+          data-avail0="true"
+          data-avail1="true"
+          data-avail2="true"
+          data-avail3="true"
+          data-avail4="true"
+        >
+          <span class="bbct-badge">Reusable</span>
+          <span class="bbct-card-name">Reusables<br>Gold</span>
+          <div class="bbct-stars">★★★★★</div>
+          <div class="bbct-card-price">£71.44</div>
+          <div class="bbct-card-save">£20 off → £51.44</div>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-card'))">
+            Choose Colour
+          </button>
+        </div>
+        <div class="bbct-cell">
+          <span class="bbct-cell-text">
+            £71.44<br>
+            <small style="color:var(--red);font-weight:700;">£51.44 with £20 off</small>
+          </span>
+        </div>
+        <div class="bbct-cell"><span class="bbct-cell-text">Reusable</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+        <div class="bbct-cell"><span class="check">✓</span></div>
+      </div>
+
+    </div><!-- /.bbct-cols -->
+  </div><!-- /.bbct-scroll -->
+
+  {% comment %} ──────────────────────────────────
+    COMPARISON GRID (.bbct-grid-wrap)
+    Full feature-by-feature spreadsheet view
+  ────────────────────────────────── {% endcomment %}
+  <div class="bbct-grid-wrap" role="region" aria-label="Detailed feature comparison">
+    <div class="bbct-grid-hdr">
+      <div class="bbct-grid-hdr-cell">Feature</div>
+      <div class="bbct-grid-hdr-cell">Bronze</div>
+      <div class="bbct-grid-hdr-cell">Silver</div>
+      <div class="bbct-grid-hdr-cell">Gold</div>
+      <div class="bbct-grid-hdr-cell">Platinum</div>
+      <div class="bbct-grid-hdr-cell">Reusables Silver</div>
+      <div class="bbct-grid-hdr-cell">Reusables Gold</div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Price</div>
+      <div class="bbct-grid-cell"><span class="bbct-grid-price">£19.99</span></div>
+      <div class="bbct-grid-cell"><span class="bbct-grid-price">£29.99</span></div>
+      <div class="bbct-grid-cell"><span class="bbct-grid-price">£39.99</span></div>
+      <div class="bbct-grid-cell"><span class="bbct-grid-price">£49.99</span></div>
+      <div class="bbct-grid-cell">
+        <span class="bbct-grid-price">£46.44</span>
+        <span style="font-size:.7rem;color:var(--red);font-weight:700;display:block;">£26.44 with £20 off</span>
+      </div>
+      <div class="bbct-grid-cell">
+        <span class="bbct-grid-price">£71.44</span>
+        <span style="font-size:.7rem;color:var(--red);font-weight:700;display:block;">£51.44 with £20 off</span>
+      </div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Nappy type</div>
+      <div class="bbct-grid-cell">Disposable</div>
+      <div class="bbct-grid-cell">Disposable</div>
+      <div class="bbct-grid-cell">Disposable</div>
+      <div class="bbct-grid-cell">Disposable</div>
+      <div class="bbct-grid-cell">Reusable</div>
+      <div class="bbct-grid-cell">Reusable</div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Colour variants</div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell">5 colours</div>
+      <div class="bbct-grid-cell">5 colours</div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Eco-certified</div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Chemical-free</div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Fragrance-free</div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Chlorine-free bleaching</div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Biodegradable materials</div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Organic cotton top-sheet</div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Free from latex</div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Hypoallergenic</div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Dermatologically tested</div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Suitable from birth</div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+    </div>
+
+    <div class="bbct-grid-row">
+      <div class="bbct-grid-cell">Reusable</div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="cross">✗</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+      <div class="bbct-grid-cell"><span class="check">✓</span></div>
+    </div>
+
+  </div><!-- /.bbct-grid-wrap -->
+
+  {% comment %} ──────────────────────────────────
+    MOBILE TABS (.bbct-mob)
+    Each panel card carries the same data-* attributes
+    as the desktop header card so bbctOpen() works identically.
+  ────────────────────────────────── {% endcomment %}
+  <div class="bbct-mob">
+    <div class="bbct-mob-tabs" role="tablist">
+      <button class="bbct-mob-tab active" role="tab" onclick="bbctMobTab(this,'bbct-mob-bronze')">Bronze</button>
+      <button class="bbct-mob-tab"        role="tab" onclick="bbctMobTab(this,'bbct-mob-silver')">Silver</button>
+      <button class="bbct-mob-tab"        role="tab" onclick="bbctMobTab(this,'bbct-mob-gold')">Gold</button>
+      <button class="bbct-mob-tab"        role="tab" onclick="bbctMobTab(this,'bbct-mob-plat')">Platinum</button>
+      <button class="bbct-mob-tab"        role="tab" onclick="bbctMobTab(this,'bbct-mob-rsil')">Reusables Silver</button>
+      <button class="bbct-mob-tab"        role="tab" onclick="bbctMobTab(this,'bbct-mob-rgld')">Reusables Gold</button>
+    </div>
+
+    <div class="bbct-mob-panels">
+
+      {% comment %} ── Mobile Bronze ── {% endcomment %}
+      <div id="bbct-mob-bronze" class="bbct-mob-panel active" role="tabpanel">
+        <div class="bbct-mob-card tier-bronze"
+          data-tier="bronze"
+          data-name="Bronze"
+          data-price-p="1999"
+          data-one-size="false"
+          data-is-colour="false"
+          data-vid0="REPLACE_VID_BRONZE_S1"
+          data-vid1="REPLACE_VID_BRONZE_S2"
+          data-vid2="REPLACE_VID_BRONZE_S3"
+          data-vid3="REPLACE_VID_BRONZE_S4"
+          data-vid4="REPLACE_VID_BRONZE_S5"
+          data-vid5="REPLACE_VID_BRONZE_S6"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true" data-avail5="true"
+        >
+          <div class="bbct-mob-name">Eco Disposables Bronze</div>
+          <div>
+            <span class="bbct-mob-price">£19.99</span>
+            <span class="bbct-mob-was">£24.99</span>
+            <span class="bbct-mob-save">Save £5</span>
+          </div>
+          <ul class="bbct-mob-features">
+            <li><span class="check">✓</span> Eco-certified</li>
+            <li><span class="cross">✗</span> Chemical-free</li>
+            <li><span class="check">✓</span> Fragrance-free</li>
+            <li><span class="cross">✗</span> Biodegradable</li>
+            <li><span class="check">✓</span> Free from latex</li>
+            <li><span class="check">✓</span> Suitable from birth</li>
+            <li><span class="cross">✗</span> Reusable</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">
+            Choose Size
+          </button>
+        </div>
+      </div>
+
+      {% comment %} ── Mobile Silver ── {% endcomment %}
+      <div id="bbct-mob-silver" class="bbct-mob-panel" role="tabpanel">
+        <div class="bbct-mob-card tier-silver"
+          data-tier="silver"
+          data-name="Silver"
+          data-price-p="2999"
+          data-one-size="false"
+          data-is-colour="false"
+          data-vid0="REPLACE_VID_SILVER_S1"
+          data-vid1="REPLACE_VID_SILVER_S2"
+          data-vid2="REPLACE_VID_SILVER_S3"
+          data-vid3="REPLACE_VID_SILVER_S4"
+          data-vid4="REPLACE_VID_SILVER_S5"
+          data-vid5="REPLACE_VID_SILVER_S6"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true" data-avail5="true"
+        >
+          <div class="bbct-mob-name">Eco Disposables Silver</div>
+          <div>
+            <span class="bbct-mob-price">£29.99</span>
+            <span class="bbct-mob-was">£34.99</span>
+            <span class="bbct-mob-save">Save £5</span>
+          </div>
+          <ul class="bbct-mob-features">
+            <li><span class="check">✓</span> Eco-certified</li>
+            <li><span class="check">✓</span> Chemical-free</li>
+            <li><span class="check">✓</span> Fragrance-free</li>
+            <li><span class="cross">✗</span> Biodegradable</li>
+            <li><span class="check">✓</span> Hypoallergenic</li>
+            <li><span class="check">✓</span> Dermatologically tested</li>
+            <li><span class="cross">✗</span> Reusable</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">
+            Choose Size
+          </button>
+        </div>
+      </div>
+
+      {% comment %} ── Mobile Gold ── {% endcomment %}
+      <div id="bbct-mob-gold" class="bbct-mob-panel" role="tabpanel">
+        <div class="bbct-mob-card tier-gold"
+          data-tier="gold"
+          data-name="Gold"
+          data-price-p="3999"
+          data-one-size="false"
+          data-is-colour="false"
+          data-vid0="REPLACE_VID_GOLD_S1"
+          data-vid1="REPLACE_VID_GOLD_S2"
+          data-vid2="REPLACE_VID_GOLD_S3"
+          data-vid3="REPLACE_VID_GOLD_S4"
+          data-vid4="REPLACE_VID_GOLD_S5"
+          data-vid5="REPLACE_VID_GOLD_S6"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true" data-avail5="true"
+        >
+          <div class="bbct-mob-name">Eco Disposables Gold</div>
+          <div>
+            <span class="bbct-mob-price">£39.99</span>
+            <span class="bbct-mob-was">£44.99</span>
+            <span class="bbct-mob-save">Save £5</span>
+          </div>
+          <ul class="bbct-mob-features">
+            <li><span class="check">✓</span> Eco-certified</li>
+            <li><span class="check">✓</span> Chemical-free</li>
+            <li><span class="check">✓</span> Biodegradable</li>
+            <li><span class="check">✓</span> Organic cotton</li>
+            <li><span class="check">✓</span> Hypoallergenic</li>
+            <li><span class="check">✓</span> Dermatologically tested</li>
+            <li><span class="cross">✗</span> Reusable</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">
+            Choose Size
+          </button>
+        </div>
+      </div>
+
+      {% comment %} ── Mobile Platinum ── {% endcomment %}
+      <div id="bbct-mob-plat" class="bbct-mob-panel" role="tabpanel">
+        <div class="bbct-mob-card tier-platinum"
+          data-tier="platinum"
+          data-name="Platinum"
+          data-price-p="4999"
+          data-one-size="false"
+          data-is-colour="false"
+          data-vid0="REPLACE_VID_PLATINUM_S1"
+          data-vid1="REPLACE_VID_PLATINUM_S2"
+          data-vid2="REPLACE_VID_PLATINUM_S3"
+          data-vid3="REPLACE_VID_PLATINUM_S4"
+          data-vid4="REPLACE_VID_PLATINUM_S5"
+          data-vid5="REPLACE_VID_PLATINUM_S6"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true" data-avail5="true"
+        >
+          <div class="bbct-mob-name">Eco Disposables Platinum</div>
+          <div>
+            <span class="bbct-mob-price">£49.99</span>
+            <span class="bbct-mob-was">£54.99</span>
+            <span class="bbct-mob-save">Save £5</span>
+          </div>
+          <ul class="bbct-mob-features">
+            <li><span class="check">✓</span> Eco-certified</li>
+            <li><span class="check">✓</span> Chemical-free</li>
+            <li><span class="check">✓</span> Biodegradable</li>
+            <li><span class="check">✓</span> Organic cotton</li>
+            <li><span class="check">✓</span> Hypoallergenic</li>
+            <li><span class="check">✓</span> Dermatologically tested</li>
+            <li><span class="cross">✗</span> Reusable</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">
+            Choose Size
+          </button>
+        </div>
+      </div>
+
+      {% comment %} ── Mobile Reusables Silver ──
+        data-is-colour="true" triggers colour picker in modal
+        data-vid0–4 = Blue/Green/Pink/Turquoise/Yellow
+      ── {% endcomment %}
+      <div id="bbct-mob-rsil" class="bbct-mob-panel" role="tabpanel">
+        <div class="bbct-mob-card tier-rsil"
+          data-tier="rsil"
+          data-name="Reusables Silver"
+          data-price-p="4644"
+          data-one-size="false"
+          data-is-colour="true"
+          data-vid0="REPLACE_VID_RS_BL"
+          data-vid1="REPLACE_VID_RS_GR"
+          data-vid2="REPLACE_VID_RS_PI"
+          data-vid3="REPLACE_VID_RS_TU"
+          data-vid4="REPLACE_VID_RS_YE"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true"
+        >
+          <div class="bbct-mob-name">Reusables Silver</div>
+          <div>
+            <span class="bbct-mob-price">£46.44</span>
+            <span class="bbct-mob-save">£20 off → £26.44</span>
+          </div>
+          <ul class="bbct-mob-features">
+            <li><span class="check">✓</span> 5 colour options</li>
+            <li><span class="check">✓</span> Eco-certified</li>
+            <li><span class="check">✓</span> Chemical-free</li>
+            <li><span class="check">✓</span> Biodegradable</li>
+            <li><span class="check">✓</span> Organic cotton</li>
+            <li><span class="check">✓</span> Hypoallergenic</li>
+            <li><span class="check">✓</span> Reusable</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">
+            Choose Colour
+          </button>
+        </div>
+      </div>
+
+      {% comment %} ── Mobile Reusables Gold ──
+        data-is-colour="true" triggers colour picker in modal
+        data-vid0–4 = Blue/Green/Pink/Turquoise/Yellow
+      ── {% endcomment %}
+      <div id="bbct-mob-rgld" class="bbct-mob-panel" role="tabpanel">
+        <div class="bbct-mob-card tier-rgld"
+          data-tier="rgld"
+          data-name="Reusables Gold"
+          data-price-p="7144"
+          data-one-size="false"
+          data-is-colour="true"
+          data-vid0="REPLACE_VID_RG_BL"
+          data-vid1="REPLACE_VID_RG_GR"
+          data-vid2="REPLACE_VID_RG_PI"
+          data-vid3="REPLACE_VID_RG_TU"
+          data-vid4="REPLACE_VID_RG_YE"
+          data-avail0="true" data-avail1="true" data-avail2="true"
+          data-avail3="true" data-avail4="true"
+        >
+          <div class="bbct-mob-name">Reusables Gold</div>
+          <div>
+            <span class="bbct-mob-price">£71.44</span>
+            <span class="bbct-mob-save">£20 off → £51.44</span>
+          </div>
+          <ul class="bbct-mob-features">
+            <li><span class="check">✓</span> 5 colour options</li>
+            <li><span class="check">✓</span> Eco-certified</li>
+            <li><span class="check">✓</span> Chemical-free</li>
+            <li><span class="check">✓</span> Biodegradable</li>
+            <li><span class="check">✓</span> Organic cotton</li>
+            <li><span class="check">✓</span> Hypoallergenic</li>
+            <li><span class="check">✓</span> Reusable</li>
+          </ul>
+          <button class="bbct-atc-btn" onclick="bbctOpen(this.closest('.bbct-mob-card'))">
+            Choose Colour
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /.bbct-mob-panels -->
+  </div><!-- /.bbct-mob -->
+
+  {% comment %} ──────────────────────────────────
+    SIZE / COLOUR PICKER MODAL (.bbct-modal)
+    Populated dynamically by bbctOpen()
+  ────────────────────────────────── {% endcomment %}
+  <div class="bbct-modal-overlay" id="bbct-modal-{{ section.id }}" role="dialog" aria-modal="true" aria-labelledby="bbct-modal-title-{{ section.id }}">
+    <div class="bbct-modal">
+      <button class="bbct-modal-close" onclick="bbctClose('{{ section.id }}')" aria-label="Close">&times;</button>
+
+      <div class="bbct-modal-body" id="bbct-modal-body-{{ section.id }}">
+        <!-- populated by bbctOpen() -->
+      </div>
+
+      <div class="bbct-modal-success" id="bbct-modal-success-{{ section.id }}">
+        <div class="bbct-modal-success-icon">🎉</div>
+        <h3>Added to your bag!</h3>
+        <p>Head to checkout when you're ready.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ─── Colour picker data ─── */
+  var COLOURS = [
+    { name: 'Blue',      hex: '#4a90d9' },
+    { name: 'Green',     hex: '#3a7d5e' },
+    { name: 'Pink',      hex: '#e879a0' },
+    { name: 'Turquoise', hex: '#0d9488' },
+    { name: 'Yellow',    hex: '#f59e0b' }
+  ];
+
+  /* ─── Size picker data ─── */
+  var SIZES = ['Size 1', 'Size 2', 'Size 3', 'Size 4', 'Size 5', 'Size 6'];
+
+  /* ─── Format pence → £ string ─── */
+  function fmtPrice(pence) {
+    return '£' + (pence / 100).toFixed(2);
+  }
+
+  /* ─── Collect variant IDs + availability from card element ─── */
+  function getVariants(card) {
+    var vids = [], avails = [];
+    for (var i = 0; i <= 5; i++) {
+      var vid   = card.dataset['vid'   + i];
+      var avail = card.dataset['avail' + i];
+      if (vid !== undefined) {
+        vids.push(vid);
+        avails.push(avail !== 'false');
+      }
+    }
+    return { vids: vids, avails: avails };
+  }
+
+  /* ─── Find the section ID from ancestor ─── */
+  function getSectionId(card) {
+    var sec = card.closest('section[id^="bbct-"]');
+    return sec ? sec.id.replace('bbct-', '') : '';
+  }
+
+  /* ─────────────────────────────────────────────────
+     bbctOpen(card)
+     Called when a "Choose Size" / "Choose Colour" button is clicked.
+     card = the .bbct-card or .bbct-mob-card element.
+  ───────────────────────────────────────────────── */
+  window.bbctOpen = function (card) {
+    var sid      = getSectionId(card);
+    var overlay  = document.getElementById('bbct-modal-' + sid);
+    var body     = document.getElementById('bbct-modal-body-' + sid);
+    var success  = document.getElementById('bbct-modal-success-' + sid);
+    if (!overlay || !body) return;
+
+    var d        = card.dataset;
+    var name     = d.name     || 'Product';
+    var priceP   = parseInt(d.priceP || '0', 10);
+    var isColour = d.isColour === 'true';
+    var variants = getVariants(card);
+
+    /* Reset success state */
+    success.classList.remove('show');
+    body.style.display = '';
+
+    /* ── Build modal body HTML ── */
+    var html = '';
+
+    /* Product label */
+    html += '<div class="bbct-modal-product">' + escHtml(name) + '</div>';
+
+    /* Modal title — "Select your colour:" or "Select your nappy size:" */
+    if (isColour) {
+      html += '<h2 class="bbct-modal-title" id="bbct-modal-title-' + sid + '">Select your colour:</h2>';
+    } else {
+      html += '<h2 class="bbct-modal-title" id="bbct-modal-title-' + sid + '">Select your nappy size:</h2>';
+    }
+
+    /* Price */
+    html += '<div class="bbct-modal-price">' + fmtPrice(priceP) + '</div>';
+
+    /* Variant buttons */
+    html += '<div class="bbct-msz-grid">';
+
+    for (var i = 0; i < variants.vids.length; i++) {
+      var vid     = variants.vids[i];
+      var avail   = variants.avails[i];
+      var unavailClass = avail ? '' : ' unavail';
+
+      if (isColour) {
+        /* Colour variant button with swatch */
+        var col = COLOURS[i] || { name: 'Colour ' + (i + 1), hex: '#aaa' };
+        html +=
+          '<button class="bbct-msz-btn' + unavailClass + '" ' +
+                  'data-vid="' + escAttr(vid) + '" ' +
+                  'data-label="' + escAttr(col.name) + '" ' +
+                  (avail ? '' : 'disabled ') +
+                  'onclick="bbctSelectVariant(this)">' +
+            '<span class="bbct-msz-swatch" style="background:' + col.hex + '"></span>' +
+            escHtml(col.name) +
+          '</button>';
+      } else {
+        /* Size variant button */
+        var sizeLabel = SIZES[i] || ('Size ' + (i + 1));
+        html +=
+          '<button class="bbct-msz-btn' + unavailClass + '" ' +
+                  'data-vid="' + escAttr(vid) + '" ' +
+                  'data-label="' + escAttr(sizeLabel) + '" ' +
+                  (avail ? '' : 'disabled ') +
+                  'onclick="bbctSelectVariant(this)">' +
+            escHtml(sizeLabel) +
+          '</button>';
+      }
+    }
+
+    html += '</div>'; /* /.bbct-msz-grid */
+
+    /* ATC button — disabled until a variant is selected */
+    if (isColour) {
+      html +=
+        '<button class="bbct-modal-atc" id="bbct-atc-' + sid + '" disabled ' +
+                'onclick="bbctAddToCart(\'' + sid + '\')">' +
+          'Add to Bag' +
+        '</button>';
+    } else {
+      html +=
+        '<button class="bbct-modal-atc" id="bbct-atc-' + sid + '" disabled ' +
+                'onclick="bbctAddToCart(\'' + sid + '\')">' +
+          'Add to Bag' +
+        '</button>';
+    }
+
+    html += '<p class="bbct-modal-notice">Free UK delivery on all subscription orders.</p>';
+
+    body.innerHTML = html;
+
+    /* Store whether this is a colour picker for ATC labelling */
+    overlay.dataset.isColour = isColour ? 'true' : 'false';
+
+    /* Open overlay */
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  /* ─────────────────────────────────────────────────
+     bbctSelectVariant(btn)
+     Called when a size or colour button is clicked.
+  ───────────────────────────────────────────────── */
+  window.bbctSelectVariant = function (btn) {
+    var grid = btn.closest('.bbct-msz-grid');
+    if (!grid) return;
+
+    /* Deselect siblings */
+    grid.querySelectorAll('.bbct-msz-btn').forEach(function (b) {
+      b.classList.remove('selected');
+    });
+    btn.classList.add('selected');
+
+    /* Update ATC button */
+    var overlay = btn.closest('.bbct-modal-overlay');
+    if (!overlay) return;
+    var sid = overlay.id.replace('bbct-modal-', '');
+    var atcBtn = document.getElementById('bbct-atc-' + sid);
+    if (!atcBtn) return;
+
+    var label    = btn.dataset.label || '';
+    var vid      = btn.dataset.vid   || '';
+    var isColour = overlay.dataset.isColour === 'true';
+
+    atcBtn.disabled = false;
+    atcBtn.dataset.selectedVid = vid;
+
+    if (isColour) {
+      atcBtn.textContent = 'Add to Bag \u2014 ' + label;
+    } else {
+      atcBtn.textContent = 'Add to Bag \u2014 ' + label;
+    }
+  };
+
+  /* ─────────────────────────────────────────────────
+     bbctAddToCart(sid)
+     Posts the selected variant to Shopify /cart/add.js
+  ───────────────────────────────────────────────── */
+  window.bbctAddToCart = function (sid) {
+    var atcBtn = document.getElementById('bbct-atc-' + sid);
+    if (!atcBtn || atcBtn.disabled) return;
+
+    var vid = atcBtn.dataset.selectedVid;
+    if (!vid) return;
+
+    atcBtn.disabled    = true;
+    atcBtn.textContent = 'Adding\u2026';
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ id: vid, quantity: 1 })
+    })
+    .then(function (res) {
+      if (!res.ok) throw new Error('Cart error ' + res.status);
+      return res.json();
+    })
+    .then(function () {
+      var body    = document.getElementById('bbct-modal-body-' + sid);
+      var success = document.getElementById('bbct-modal-success-' + sid);
+      if (body)    body.style.display = 'none';
+      if (success) success.classList.add('show');
+      /* Refresh cart count if theme exposes a method */
+      if (typeof window.Shopify !== 'undefined' && typeof window.Shopify.onCartUpdate === 'function') {
+        fetch('/cart.js').then(function(r){ return r.json(); }).then(window.Shopify.onCartUpdate);
+      }
+    })
+    .catch(function (err) {
+      console.error('[bbct] Add to cart failed:', err);
+      atcBtn.disabled    = false;
+      atcBtn.textContent = 'Error — try again';
+    });
+  };
+
+  /* ─────────────────────────────────────────────────
+     bbctClose(sid)
+     Closes the modal overlay.
+  ───────────────────────────────────────────────── */
+  window.bbctClose = function (sid) {
+    var overlay = document.getElementById('bbct-modal-' + sid);
+    if (!overlay) return;
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  /* ─── Close on backdrop click ─── */
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('bbct-modal-overlay')) {
+      e.target.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  /* ─── Close on Escape key ─── */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.bbct-modal-overlay.open').forEach(function (o) {
+        o.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+
+  /* ─────────────────────────────────────────────────
+     bbctMobTab(tab, panelId)
+     Switches the active mobile tab and panel.
+  ───────────────────────────────────────────────── */
+  window.bbctMobTab = function (tab, panelId) {
+    var tabBar = tab.closest('.bbct-mob-tabs');
+    if (tabBar) {
+      tabBar.querySelectorAll('.bbct-mob-tab').forEach(function (t) {
+        t.classList.remove('active');
+      });
+      tab.classList.add('active');
+    }
+    var panels = tab.closest('.bbct-mob').querySelectorAll('.bbct-mob-panel');
+    panels.forEach(function (p) { p.classList.remove('active'); });
+    var target = document.getElementById(panelId);
+    if (target) target.classList.add('active');
+  };
+
+  /* ─── Utility: escape HTML entities ─── */
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  /* ─── Utility: escape attribute values ─── */
+  function escAttr(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;');
+  }
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BB Compare Table",
+  "tag": "section",
+  "class": "bb-compare-table-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Compare Our Nappy Ranges"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Find the perfect fit for your baby and your lifestyle"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BB Compare Table",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
